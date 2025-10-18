@@ -8,20 +8,21 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router";
 import Avatar from '@mui/material/Avatar';
 
 
-export default function MovieCard({ movie, action }) {
+export default function MovieCard({ movie, action, page }) {
   return (
     <Card>
       <CardHeader
         avatar={
-          movie.favorite ? (
+          (movie.favorite && page !== "upcoming") ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
-              {/* <FavoriteIcon /> */}
+              <FavoriteIcon />
             </Avatar>
           ) : null
         }
@@ -57,7 +58,7 @@ export default function MovieCard({ movie, action }) {
       </CardContent>
             <CardActions disableSpacing>
       
-        {action(movie)}
+        {action ? action(movie) : null}
       
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { getMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
+import { MoviesContext } from "../contexts/movieContext";
 
 const HomePage = (props) => {
 
@@ -12,6 +13,8 @@ const HomePage = (props) => {
     queryFn: getMovies,
   })
   
+  const { favorites: favoriteMovieIds } = useContext(MoviesContext);
+
   if (isPending) {
     return <Spinner />
   }
@@ -20,11 +23,10 @@ const HomePage = (props) => {
     return <h1>{error.message}</h1>
   }
   
-  const movies = data.results;
-
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
-  const addToFavorites = (movieId) => true
+  const movies = data.results.map((m) => ({
+    ...m,
+    favorite: favoriteMovieIds.includes(m.id),
+  }));
 
   return (
       <PageTemplate

@@ -10,13 +10,12 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [genreFilter, setGenreFilter] = useState("0");
   const genreId = Number(genreFilter);
 
-  let displayedMovies = movies
-    .filter((m) => {
+  let displayedMovies = Array.isArray(movies) ? movies.filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
+    }) : [];
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
