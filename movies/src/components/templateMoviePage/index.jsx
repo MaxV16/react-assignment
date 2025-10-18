@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from "react";
 import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
+import { useQuery } from "@tanstack/react-query";
+import Spinner from '../spinner'
 
 const TemplateMoviePage = ({ movie, children }) => {
-  const [images, setImages] = useState([]);
+  const { data, error, isPending, isError } = useQuery({
+    queryKey: ['images', { id: movie.id }],
+    queryFn: getMovieImages,
+  });
 
-  useEffect(() => {
-    getMovieImages(movie.id).then((images) => {
-      setImages(images);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (isPending) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+  
+  const images = data.posters
+
 
   return (
     <>
