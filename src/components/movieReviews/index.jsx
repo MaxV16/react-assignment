@@ -28,6 +28,7 @@ export default function MovieReviews({ movie }) {
   }
   
   const reviews = data.results;
+  console.log("Movie Reviews:", reviews);
 
 
   return (
@@ -46,7 +47,7 @@ export default function MovieReviews({ movie }) {
               <TableCell component="th" scope="row">
                 {r.author}
               </TableCell>
-              <TableCell >{excerpt(r.content)}</TableCell>
+              <TableCell >{excerpt(r.content) || "No excerpt available"}</TableCell>
               <TableCell >
               <Link
                   to={`/reviews/${r.id}`}

@@ -25,7 +25,7 @@ const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [credits] = useMovieCredits(movie.id);
+  const { data: credits } = useMovieCredits(movie.id);
 
   return (
     <>

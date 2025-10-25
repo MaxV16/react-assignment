@@ -5,15 +5,13 @@ import { useLocation } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
+import { useMovie } from "../hooks/useMovie";
 
 const WriteReviewPage = (props) => {
   const location = useLocation();
   const movieId = location.state.movieId;
 
-  const { data: movie, error, isLoading, isError } = useQuery({
-    queryKey: ['movie', {id: movieId}],
-    queryFn: getMovie,
-  });
+  const { data: movie, error, isLoading, isError } = useMovie(movieId);
 
   if (isLoading) {
     return <Spinner />;

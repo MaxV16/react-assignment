@@ -7,11 +7,19 @@ import MovieList from "../components/movieList";
 
 const ActorDetailsPage = () => {
   const { id } = useParams();
-  const [actor] = useActorDetails(id);
-  const [movieCredits] = useActorMovieCredits(id);
+  const { data: actor, isLoading: actorLoading, isError: actorError, error: actorDetailsError } = useActorDetails(id);
+  const { data: movieCredits, isLoading: movieCreditsLoading, isError: movieCreditsError, error: movieCreditsDetailsError } = useActorMovieCredits(id);
 
-  if (!actor || !movieCredits) {
+  if (actorLoading || movieCreditsLoading) {
     return <Spinner />;
+  }
+
+  if (actorError) {
+    return <h1>{actorDetailsError.message}</h1>;
+  }
+
+  if (movieCreditsError) {
+    return <h1>{movieCreditsDetailsError.message}</h1>;
   }
 
   return (
