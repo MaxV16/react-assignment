@@ -8,7 +8,9 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from "../movieReviews"
+import MovieReviews from "../movieReviews";
+import { useMovieCredits } from "../../hooks/useMovie";
+import { Link } from "react-router-dom";
 
 
 const root = {
@@ -21,8 +23,9 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {  // Don't miss this!
+const MovieDetails = ({ movie }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [credits] = useMovieCredits(movie.id);
 
   return (
     <>
@@ -59,6 +62,19 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           label={`${movie.vote_average} (${movie.vote_count})`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
+      </Paper>
+
+      <Paper component="ul" sx={{ ...root }}>
+        <li>
+          <Chip label="Cast" sx={{ ...chip }} color="primary" />
+        </li>
+        {credits && credits.cast.map((castMember) => (
+          <li key={castMember.id}>
+            <Link to={`/actors/${castMember.id}`}>
+              <Chip label={castMember.name} sx={{ ...chip }} clickable color="secondary" />
+            </Link>
+          </li>
+        ))}
       </Paper>
 
       <Fab

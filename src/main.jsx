@@ -10,8 +10,12 @@ import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
-import TrendingWeekPage from "./pages/TrendingWeekPage";
-import TrendingTodayPage from "./pages/trendingTodayPage";
+import TrendingWeekPage from "./pages/trendingWeekPage";
+import TrendingTodayPage from "./pages/trendingTodayPage.jsx";
+import PopularMoviesPage from "./pages/popularMoviesPage";
+import NowPlayingMoviesPage from "./pages/nowPlayingMovies";
+import TopRatedMoviesPage from "./pages/topRatedMovies";
+import ActorDetailsPage from "./pages/actorDetailsPage";
 
 
 const queryClient = new QueryClient({
@@ -31,12 +35,16 @@ const App = () => {
         <SiteHeader />
         <MoviesContextProvider>
           <Routes>
-            <Route path="/movies/trending/week" element={<TrendingWeekPage />} />
+             <Route path="/movie/popular" element={<PopularMoviesPage />} />
+             <Route path="/movies/top_rated" element={<TopRatedMoviesPage />} />
             <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
+            <Route path="/movies/trending/week" element={<TrendingWeekPage />} />
+            <Route path="/movies/now_playing" element={<NowPlayingMoviesPage />} />
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
             <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/reviews/form" element={<AddMovieReviewPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
+            <Route path="/actors/:id" element={<ActorDetailsPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
