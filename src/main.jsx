@@ -11,7 +11,7 @@ import SiteHeader from './components/siteHeader';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import TrendingWeekPage from "./pages/TrendingWeekPage";
-
+import TrendingTodayPage from "./pages/trendingTodayPage";
 
 
 const queryClient = new QueryClient({
@@ -32,6 +32,7 @@ const App = () => {
         <MoviesContextProvider>
           <Routes>
             <Route path="/movies/trending/week" element={<TrendingWeekPage />} />
+            <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
             <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/reviews/form" element={<AddMovieReviewPage />} />
