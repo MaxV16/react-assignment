@@ -10,10 +10,12 @@ const HomePage = (props) => {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
+  const [sortOption, setSortOption] = useState(""); // Add sortOption state
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "releaseYear") setReleaseYearFilter(value);
+    else if (type === "sort") setSortOption(value); // Handle sort option
     else setGenreFilter(value);
   };
 
@@ -51,6 +53,7 @@ const HomePage = (props) => {
       nameFilter={nameFilter}
       genreFilter={genreFilter}
       releaseYearFilter={releaseYearFilter}
+      sortOption={sortOption}
     />
   );
 };

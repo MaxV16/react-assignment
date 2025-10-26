@@ -5,7 +5,7 @@ import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
 import AddToPlaylistIcon from "../cardIcons/addToPlaylist";
 
-function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter, genreFilter, releaseYearFilter }) {
+function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter, genreFilter, releaseYearFilter, sortOption }) {
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -14,6 +14,22 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
       const genreMatch = genreId > 0 ? m.genre_ids && m.genre_ids.includes(genreId) : true;
       const releaseYearMatch = releaseYearFilter ? m.release_date && m.release_date.substring(0, 4).includes(releaseYearFilter) : true;
       return m && nameMatch && genreMatch && releaseYearMatch;
+    })
+    .sort((a, b) => {
+      if (!sortOption) return 0;
+
+      const [key, order] = sortOption.split('.');
+      let valA = a[key];
+      let valB = b[key];
+
+      if (key === 'title') {
+        valA = valA ? valA.toLowerCase() : '';
+        valB = valB ? valB.toLowerCase() : '';
+      }
+
+      if (valA < valB) return order === 'asc' ? -1 : 1;
+      if (valA > valB) return order === 'asc' ? 1 : -1;
+      return 0;
     });
 
   return (
@@ -32,6 +48,7 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
             titleFilter={nameFilter}
             genreFilter={genreFilter}
             releaseYearFilter={releaseYearFilter}
+            sortOption={sortOption}
           />
         </Grid>
         <MovieList
