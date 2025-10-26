@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; 
+}
+
+.MuiAppBar-root {
+  background-color: #212121 !important; 
+}
+
+.MuiButton-root {
+  border-radius: 8px !important;
+}
+
+.MuiChip-root {
+  background-color: #1976d2 !important;
+  color: white !important;
+}
+
+.MuiFab-root {
+  background-color: #dc004e !important; 
+  color: white !important;
+}
