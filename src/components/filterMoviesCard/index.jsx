@@ -76,6 +76,16 @@ export default function FilterMoviesCard(props) {
                     onChange={handleTextChange}
                 />
 
+                <TextField
+                    sx={{ ...formControl }}
+                    id="filled-search"
+                    label="Release Year"
+                    type="search"
+                    variant="filled"
+                    value={props.releaseYearFilter}
+                    onChange={(e) => handleChange(e, "releaseYear", e.target.value)}
+                />
+
                 <FormControl sx={{ ...formControl }}>
                     <InputLabel id="genre-label">Genre</InputLabel>
                     <Select

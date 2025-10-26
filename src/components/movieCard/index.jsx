@@ -22,17 +22,8 @@ export default function MovieCard({ movie, action }) {
   const { favorites, addToFavorites } = useContext(MoviesContext);
   const { myPlaylist, addToPlaylist } = useContext(PlaylistContext);
 
-  if (favorites.find((id) => id === movie.id)) {
-    movie.favorite = true;
-  } else {
-    movie.favorite = false
-  }
-
-  if (myPlaylist.find((id) => id === movie.id)) {
-    movie.playlist = true;
-  } else {
-    movie.playlist = false;
-  }
+  const isFavorite = favorites.includes(movie.id);
+  const isInPlaylist = myPlaylist.some((m) => m.id === movie.id);
 
   const handleAddToFavorite = (e) => {
     e.preventDefault();
@@ -49,7 +40,7 @@ export default function MovieCard({ movie, action }) {
     <Card>
       <CardHeader
         avatar={
-          movie.favorite ? (
+          isFavorite ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
