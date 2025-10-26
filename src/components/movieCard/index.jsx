@@ -1,5 +1,6 @@
 import React, { useContext  } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
+import { PlaylistContext } from "../../contexts/playlistContext";
 import { Link } from "react-router";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -19,6 +20,7 @@ import img from '../../images/film-poster-placeholder.png';
 export default function MovieCard({ movie, action }) { 
 
   const { favorites, addToFavorites } = useContext(MoviesContext);
+  const { myPlaylist, addToPlaylist } = useContext(PlaylistContext);
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
@@ -26,12 +28,22 @@ export default function MovieCard({ movie, action }) {
     movie.favorite = false
   }
 
+  if (myPlaylist.find((id) => id === movie.id)) {
+    movie.playlist = true;
+  } else {
+    movie.playlist = false;
+  }
+
   const handleAddToFavorite = (e) => {
     e.preventDefault();
     addToFavorites(movie);
   };
-  
 
+  const handleAddToPlaylist = (e) => {
+    e.preventDefault();
+    addToPlaylist(movie);
+  };
+ 
 
   return (
     <Card>
@@ -79,14 +91,13 @@ export default function MovieCard({ movie, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
+      {action(movie)}
+      <Link to={`/movies/${movie.id}`}>
+        <Button variant="outlined" size="medium" color="primary">
+          More Info ...
+        </Button>
+      </Link>
       
-        {action && action(movie)}
-      
-        <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
         
       </CardActions>
 
