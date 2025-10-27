@@ -15,9 +15,10 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
+import Divider from "@mui/material/Divider";
+
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
-
 const SiteHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -84,6 +85,7 @@ const SiteHeader = () => {
                       <ListItemText primary={opt.label} />
                     </ListItemButton>
                   ))}
+                  <Divider />
                 </List>
               </Drawer>
             </>

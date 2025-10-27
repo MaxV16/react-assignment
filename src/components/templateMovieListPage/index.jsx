@@ -34,14 +34,18 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
 
   return (
     <Grid container>
-      <Grid size={12}>
+      <Grid item xs={12}>
         <Header title={title} />
       </Grid>
-      <Grid container sx={{flex: "1 1 500px"}}>
+      <Grid container sx={{ flex: "1 1 500px", padding: "20px" }}>
         <Grid
+          item
+          xs={12}
+          sm={4}
+          md={3}
+          lg={2}
           key="find"
-          size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}}
-          sx={{padding: "20px"}}
+          sx={{ padding: "10px" }}
         >
           <FilterCard
             onUserInput={onUserInput}
@@ -51,17 +55,19 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
             sortOption={sortOption}
           />
         </Grid>
-        <MovieList
-          action={(movie) => {
-            return (
-              <>
-                {action(movie)}
-                <AddToPlaylistIcon movie={movie} />
-              </>
-            );
-          }}
-          movies={displayedMovies}
-        ></MovieList>
+        <Grid item xs={12} sm={8} md={9} lg={10}>
+          <MovieList
+            action={(movie) => {
+              return (
+                <>
+                  {action(movie)}
+                  <AddToPlaylistIcon movie={movie} />
+                </>
+              );
+            }}
+            movies={displayedMovies}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

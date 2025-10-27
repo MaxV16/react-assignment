@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
-import StarRateIcon from "@mui/icons-material/StarRate";
+import Rating from "@mui/material/Rating";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Avatar from '@mui/material/Avatar';
@@ -74,10 +74,7 @@ export default function MovieCard({ movie, action }) {
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
-            </Typography>
+            <Rating name="movie-rating" value={movie.vote_average / 2} precision={0.1} readOnly />
           </Grid>
         </Grid>
       </CardContent>

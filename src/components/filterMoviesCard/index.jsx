@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
 import Card from "@mui/material/Card";
@@ -8,10 +8,11 @@ import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres, getMovies } from "../../api/tmdb-api";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
 
 const formControl =
@@ -58,16 +59,21 @@ export default function FilterMoviesCard(props) {
     return (
         <Card
             sx={{
-                backgroundColor: "rgb(204, 204, 0)"
+                backgroundColor: "rgb(204, 204, 0)",
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '10px',
             }}
             variant="outlined">
-            <CardContent>
-                <Typography variant="h5" component="h1">
+            <CardContent sx={{ flex: 2 }}>
+                <Typography variant="h5" component="h1" sx={{ display: 'flex', alignItems: 'center' }}>
                     <SearchIcon fontSize="large" />
                     Filter the movies.
                 </Typography>
                 <TextField
-                    sx={{ ...formControl }}
+                    sx={{ ...formControl, width: '90%' }}
                     id="filled-search"
                     label="Search field"
                     type="search"
@@ -77,7 +83,7 @@ export default function FilterMoviesCard(props) {
                 />
 
                 <TextField
-                    sx={{ ...formControl }}
+                    sx={{ ...formControl, width: '90%' }}
                     id="filled-search"
                     label="Release Year"
                     type="search"
@@ -86,7 +92,7 @@ export default function FilterMoviesCard(props) {
                     onChange={(e) => handleChange(e, "releaseYear", e.target.value)}
                 />
 
-                <FormControl sx={{ ...formControl }}>
+                <FormControl sx={{ ...formControl, width: '90%' }}>
                     <InputLabel id="sort-label">Sort By</InputLabel>
                     <Select
                         labelId="sort-label"
@@ -105,7 +111,7 @@ export default function FilterMoviesCard(props) {
                     </Select>
                 </FormControl>
 
-                <FormControl sx={{ ...formControl }}>
+                <FormControl sx={{ ...formControl, width: '90%' }}>
                     <InputLabel id="genre-label">Genre</InputLabel>
                     <Select
                         labelId="genre-label"
@@ -126,17 +132,10 @@ export default function FilterMoviesCard(props) {
                 </FormControl>
             </CardContent>
             <CardMedia
-                sx={{ height: 300 }}
+                sx={{ height: 300, width: 300, flex: 1 }}
                 image={img}
                 title="Filter"
             />
-            <CardContent>
-                <Typography variant="h5" component="h1">
-                    <SearchIcon fontSize="large" />
-                    Filter the movies.
-                    <br />
-                </Typography>
-            </CardContent>
         </Card>
     );
 }
