@@ -9,7 +9,7 @@ const TrendingWeekPage = (props) => {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("vote_average.desc");
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
@@ -47,11 +47,16 @@ const TrendingWeekPage = (props) => {
 
       const [key, order] = sortOption.split('.');
       let valA = a[key];
-      let valB = b[key];
+      let valB = b[key]
 
       if (key === 'title') {
         valA = valA ? valA.toLowerCase() : '';
         valB = valB ? valB.toLowerCase() : '';
+      }
+
+      if (key === 'vote_average') {
+        valA = Number(valA);
+        valB = Number(valB);
       }
 
       if (valA < valB) return order === 'asc' ? -1 : 1;

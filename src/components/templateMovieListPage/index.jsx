@@ -5,7 +5,7 @@ import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
 import AddToPlaylistIcon from "../cardIcons/addToPlaylist";
 
-function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter, genreFilter, releaseYearFilter, sortOption }) {
+function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter, genreFilter, releaseYearFilter, sortOption, ratingFilter }) {
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -13,7 +13,8 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
       const nameMatch = nameFilter ? m.title && typeof m.title === 'string' && m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1 : true;
       const genreMatch = genreId > 0 ? m.genre_ids && m.genre_ids.includes(genreId) : true;
       const releaseYearMatch = releaseYearFilter ? m.release_date && m.release_date.substring(0, 4).includes(releaseYearFilter) : true;
-      return m && nameMatch && genreMatch && releaseYearMatch;
+      const ratingMatch = ratingFilter ? m.vote_average && m.vote_average >= Number(ratingFilter) : true;
+      return m && nameMatch && genreMatch && releaseYearMatch && ratingMatch;
     })
     .sort((a, b) => {
       if (!sortOption) return 0;
@@ -33,17 +34,13 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
     });
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
+    <Grid container style={{ backgroundColor: '#303030', color: '#e0e0e0' }}>
+      <Grid xs={12}>
         <Header title={title} />
       </Grid>
-      <Grid container sx={{ flex: "1 1 500px", padding: "20px" }}>
+      <Grid container sx={{ flex: "1 1 500px", padding: "20px", flexDirection: 'column' }}>
         <Grid
-          item
           xs={12}
-          sm={4}
-          md={3}
-          lg={2}
           key="find"
           sx={{ padding: "10px" }}
         >
@@ -53,9 +50,10 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
             genreFilter={genreFilter}
             releaseYearFilter={releaseYearFilter}
             sortOption={sortOption}
+            ratingFilter={ratingFilter}
           />
         </Grid>
-        <Grid item xs={12} sm={8} md={9} lg={10}>
+        <Grid xs={12}>
           <MovieList
             action={(movie) => {
               return (

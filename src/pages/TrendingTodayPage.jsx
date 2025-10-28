@@ -9,6 +9,7 @@ const TrendingTodayPage = (props) => {
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [ratingFilter, setRatingFilter] = useState("");
 
   const { data, error, isPending, isError  } = useQuery({
     queryKey: ['trendingToday'],
@@ -30,6 +31,7 @@ const TrendingTodayPage = (props) => {
     else if (type === "genre") setGenreFilter(value);
     else if (type === "releaseYear") setReleaseYearFilter(value);
     else if (type === "sort") setSortOption(value);
+    else if (type === "rating") setRatingFilter(value);
   };
 
   return (
@@ -42,6 +44,7 @@ const TrendingTodayPage = (props) => {
         genreFilter={genreFilter}
         releaseYearFilter={releaseYearFilter}
         sortOption={sortOption}
+        ratingFilter={ratingFilter}
       />
   );
 };

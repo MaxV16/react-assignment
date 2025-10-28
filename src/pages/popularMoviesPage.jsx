@@ -10,11 +10,13 @@ const PopularMoviesPage = (props) => {
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [ratingFilter, setRatingFilter] = useState("0");
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "releaseYear") setReleaseYearFilter(value);
     else if (type === "sort") setSortOption(value);
+    else if (type === "rating") setRatingFilter(value);
     else setGenreFilter(value);
   };
 
@@ -38,7 +40,8 @@ const PopularMoviesPage = (props) => {
   let displayedMovies = movies
     .filter((m) => m && m.title && m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1)
     .filter((m) => m && (genreId > 0 ? m.genre_ids && m.genre_ids.includes(genreId) : true))
-    .filter((m) => m && m.release_date && m.release_date.substring(0, 4).includes(releaseYearFilter));
+    .filter((m) => m && m.release_date && m.release_date.substring(0, 4).includes(releaseYearFilter))
+    .filter((m) => m && (Number(ratingFilter) > 0 ? m.vote_average >= Number(ratingFilter) : true));
 
   return (
     <PageTemplate
@@ -52,6 +55,7 @@ const PopularMoviesPage = (props) => {
       genreFilter={genreFilter}
       releaseYearFilter={releaseYearFilter}
       sortOption={sortOption}
+      ratingFilter={ratingFilter}
     />
   );
 };

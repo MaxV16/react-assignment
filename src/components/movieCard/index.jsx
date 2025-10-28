@@ -37,7 +37,7 @@ export default function MovieCard({ movie, action }) {
  
 
   return (
-    <Card>
+    <Card sx={{ backgroundColor: '#424242', color: '#e0e0e0' }}>
       <CardHeader
         avatar={
           isFavorite ? (
@@ -47,7 +47,7 @@ export default function MovieCard({ movie, action }) {
           ) : null
         }
         title={
-          <Typography variant="h5" component="p">
+          <Typography variant="h5" component="p" style={{ color: '#e0e0e0' }}>
             {movie.title}{" "}
           </Typography>
         }
@@ -63,9 +63,9 @@ export default function MovieCard({ movie, action }) {
       />
       <CardContent>
         <Grid container>
-          <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
+          <Grid xs={6}>
+            <Typography variant="h6" component="p" style={{ color: '#e0e0e0' }}>
+              <CalendarIcon fontSize="small" style={{ color: '#e0e0e0' }} />
               {new Date(movie.release_date).toLocaleDateString('en-GB', {
                   day: '2-digit',
                   month: 'short',
@@ -73,7 +73,7 @@ export default function MovieCard({ movie, action }) {
                 })}
             </Typography>
           </Grid>
-          <Grid size={{ xs: 6 }}>
+          <Grid xs={6}>
             <Rating name="movie-rating" value={movie.vote_average / 2} precision={0.1} readOnly />
           </Grid>
         </Grid>
@@ -81,7 +81,7 @@ export default function MovieCard({ movie, action }) {
       <CardActions disableSpacing>
       {action(movie)}
       <Link to={`/movies/${movie.id}`}>
-        <Button variant="outlined" size="medium" color="primary">
+        <Button variant="contained" size="medium" style={{ backgroundColor: '#616161', color: '#e0e0e0' }}>
           More Info ...
         </Button>
       </Link>

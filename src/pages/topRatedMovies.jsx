@@ -10,11 +10,13 @@ const TopRatedMoviesPage = (props) => {
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [ratingFilter, setRatingFilter] = useState("");
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "releaseYear") setReleaseYearFilter(value);
     else if (type === "sort") setSortOption(value);
+    else if (type === "rating") setRatingFilter(value);
     else setGenreFilter(value);
   };
 
@@ -52,6 +54,7 @@ const TopRatedMoviesPage = (props) => {
       genreFilter={genreFilter}
       releaseYearFilter={releaseYearFilter}
       sortOption={sortOption}
+      ratingFilter={ratingFilter}
     />
   );
 };

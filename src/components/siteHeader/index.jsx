@@ -58,9 +58,9 @@ const SiteHeader = () => {
 
   return (
     <>
-      <AppBar position="fixed" color="secondary">
+      <AppBar position="fixed" style={{ backgroundColor: '#212121' }}>
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" sx={{ flexGrow: 1, color: "#bbdefb" }}>
             TMDB Client
           </Typography>
           {isMobile ? (
@@ -70,9 +70,9 @@ const SiteHeader = () => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleDrawerOpen}
-                color="inherit"
+                color="white"
               >
-                <MenuIcon />
+                <MenuIcon color="white"/>
               </IconButton>
               <Drawer
                 anchor="right"
@@ -94,7 +94,7 @@ const SiteHeader = () => {
               {menuOptions.map((opt) => (
                 <Button
                   key={opt.label}
-                  color="inherit"
+                  style={{ color: '#bbdefb', '&:hover': { backgroundColor: '#424242' } }}
                   onClick={() => handleMenuSelect(opt.path)}
                 >
                   {opt.label}

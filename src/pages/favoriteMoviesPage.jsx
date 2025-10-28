@@ -14,6 +14,7 @@ const FavoriteMoviesPage = () => {
   const [genreFilter, setGenreFilter] = useState("0");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [ratingFilter, setRatingFilter] = useState("0");
 
   const favoriteMovieQueries = useQueries({
     queries: movieIds.map((movieId) => {
@@ -40,6 +41,8 @@ const FavoriteMoviesPage = () => {
     else if (type === "genre") setGenreFilter(value);
     else if (type === "releaseYear") setReleaseYearFilter(value);
     else if (type === "sort") setSortOption(value);
+    else if (type === "rating") setRatingFilter(value);
+    else console.log("Invalid type", type);
   };
 
   const genreId = Number(genreFilter);
@@ -49,8 +52,10 @@ const FavoriteMoviesPage = () => {
       const nameMatch = nameFilter ? m.title && typeof m.title === 'string' && m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1 : true;
       const genreMatch = genreId > 0 ? m.genre_ids && m.genre_ids.includes(genreId) : true;
       const releaseYearMatch = releaseYearFilter ? m.release_date && m.release_date.substring(0, 4).includes(releaseYearFilter) : true;
-      return m && nameMatch && genreMatch && releaseYearMatch;
+      const ratingMatch = ratingFilter ? m.vote_average && m.vote_average >= Number(ratingFilter) : true;
+      return m && nameMatch && genreMatch && releaseYearMatch && ratingMatch;
     })
+    .filter((m) => m && (ratingFilter > 0 ? m.vote_average && m.vote_average >= ratingFilter : true))
     .sort((a, b) => {
       if (!sortOption) return 0;
 
@@ -85,6 +90,7 @@ const FavoriteMoviesPage = () => {
       genreFilter={genreFilter}
       releaseYearFilter={releaseYearFilter}
       sortOption={sortOption}
+      ratingFilter={ratingFilter}
     />
   );
 
