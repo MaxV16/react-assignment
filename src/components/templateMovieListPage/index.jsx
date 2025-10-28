@@ -35,11 +35,12 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
 
   return (
     <Grid container style={{ backgroundColor: '#303030', color: '#e0e0e0' }}>
-      <Grid xs={12}>
+      <Grid item xs={12}>
         <Header title={title} />
       </Grid>
       <Grid container sx={{ flex: "1 1 500px", padding: "20px", flexDirection: 'column' }}>
         <Grid
+          item
           xs={12}
           key="find"
           sx={{ padding: "10px" }}
@@ -53,7 +54,7 @@ function MovieListPageTemplate({ movies, title, action, onUserInput, nameFilter,
             ratingFilter={ratingFilter}
           />
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <MovieList
             action={(movie) => {
               return (

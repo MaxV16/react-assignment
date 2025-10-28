@@ -1,7 +1,7 @@
 import React, { useContext  } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { PlaylistContext } from "../../contexts/playlistContext";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -63,7 +63,7 @@ export default function MovieCard({ movie, action }) {
       />
       <CardContent>
         <Grid container>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Typography variant="h6" component="p" style={{ color: '#e0e0e0' }}>
               <CalendarIcon fontSize="small" style={{ color: '#e0e0e0' }} />
               {new Date(movie.release_date).toLocaleDateString('en-GB', {
@@ -73,13 +73,13 @@ export default function MovieCard({ movie, action }) {
                 })}
             </Typography>
           </Grid>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Rating name="movie-rating" value={movie.vote_average / 2} precision={0.1} readOnly />
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-      {action(movie)}
+      {action && action(movie)}
       <Link to={`/movies/${movie.id}`}>
         <Button variant="contained" size="medium" style={{ backgroundColor: '#616161', color: '#e0e0e0' }}>
           More Info ...

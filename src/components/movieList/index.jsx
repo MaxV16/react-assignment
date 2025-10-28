@@ -16,7 +16,7 @@ const MovieList = (props) => {
   const displayedMovies = props.movies.slice(startIndex, endIndex);
 
   let movieCards = displayedMovies.map((m) => (
-    <Grid key={m.id} xs={12} sm={6} md={4} lg={3} xl={2} sx={{ padding: "20px" }}>
+    <Grid item key={m.id} xs={12} sm={6} md={4} lg={3} xl={2} sx={{ padding: "20px" }}>
       <Movie key={m.id} movie={m} action={props.action} />
     </Grid>
   ));
